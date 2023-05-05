@@ -6,7 +6,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 /**
- * Arquivo que organiza as dependências da camada Presentation
+ * Object que organiza as dependências da camada Presentation
  */
 
 object PresentationModule {
@@ -17,7 +17,7 @@ object PresentationModule {
 
     private fun viewModelModule(): Module {
         return module {
-            factory { HomeViewModel()}
+            factory { HomeViewModel(get())}
         }
     }
 }
