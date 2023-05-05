@@ -54,6 +54,7 @@ dependencies {
 
     //Koin
     //TODO 002: adicionar as dependências do Koin
+    implementation 'io.insert-koin:koin-android:3.1.2'
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
