@@ -28,16 +28,15 @@ internal class GetLatestPostsUseCaseTest : KoinTest {
         }
 
         @AfterClass
-        fun tearDown(){
+        fun tearDown() {
             stopKoin()
         }
     }
 
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio() {
-
         runBlocking {
-            val result = getLatestPostsUseCase.execute()
+            val result = getLatestPostsUseCase()
 
             assertNotNull(result)
 
@@ -46,9 +45,8 @@ internal class GetLatestPostsUseCaseTest : KoinTest {
 
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
-
         runBlocking {
-            val result = getLatestPostsUseCase.execute()
+            val result = getLatestPostsUseCase()
 
             assertTrue(result is Flow<List<Post>>)
 
@@ -57,9 +55,8 @@ internal class GetLatestPostsUseCaseTest : KoinTest {
 
     @Test
     fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio() {
-
         runBlocking {
-            val result = getLatestPostsUseCase.execute()
+            val result = getLatestPostsUseCase()
 
             assertFalse(result.first().isEmpty())
 

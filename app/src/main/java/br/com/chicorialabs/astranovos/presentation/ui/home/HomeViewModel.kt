@@ -60,7 +60,7 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            getLatestPostsUseCase.execute()
+            getLatestPostsUseCase()
                 .onStart {
                     //fazer algo no começo do flow
                     _listPost.postValue(State.Loading)
