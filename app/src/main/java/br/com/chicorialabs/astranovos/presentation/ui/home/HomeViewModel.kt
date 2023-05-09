@@ -5,6 +5,7 @@ import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
+import br.com.chicorialabs.astranovos.domain.PostUseCases.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
-class HomeViewModel(private val repository: PostRepository) : ViewModel() {
+class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : ViewModel() {
 
     /**
      * Esse campo controla a visibilidade da progress bar.
@@ -59,7 +60,7 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            repository.listPosts()
+            getLatestPostsUseCase.execute()
                 .onStart {
                     //fazer algo no começo do flow
                     _listPost.postValue(State.Loading)
