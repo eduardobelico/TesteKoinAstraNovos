@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -43,21 +44,20 @@ class HomeFragment : Fragment() {
             inflateMenu(R.menu.options_menu)
 
             menu.findItem(R.id.action_get_articles).setOnMenuItemClickListener {
-                Toast.makeText(context, "Clicked News!", Toast.LENGTH_SHORT).show()
+                viewModel.fetchLatest(SpaceFlightNewsCategory.ARTICLES)
                 true
             }
 
             menu.findItem(R.id.action_get_blogs).setOnMenuItemClickListener {
-                Toast.makeText(context, "Clicked Blogs!", Toast.LENGTH_SHORT).show()
+                viewModel.fetchLatest(SpaceFlightNewsCategory.BLOGS)
                 true
             }
 
             menu.findItem(R.id.action_get_reports).setOnMenuItemClickListener {
-                Toast.makeText(context, "Clicked Reports!", Toast.LENGTH_SHORT).show()
+                viewModel.fetchLatest(SpaceFlightNewsCategory.REPORTS)
                 true
             }
         }
-
     }
 
     private fun initSnackBar() {

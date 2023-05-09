@@ -5,7 +5,6 @@ import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.domain.PostUseCases.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
@@ -24,7 +23,7 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      */
 
     private val _progressBarVisible = MutableLiveData<Boolean>(false)
-    val progressBarVisible : LiveData<Boolean>
+    val progressBarVisible: LiveData<Boolean>
         get() = _progressBarVisible
 
     fun showProgressBar() {
@@ -35,13 +34,20 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
         _progressBarVisible.value = false
     }
 
+    private val _category = MutableLiveData<SpaceFlightNewsCategory>().apply {
+        value = SpaceFlightNewsCategory.ARTICLES
+    }
+
+    val category: LiveData<SpaceFlightNewsCategory>
+        get() = _category
+
     /**
      * Esse campo controla a visibilidade e a mensagem da snackbar.
      */
 
     private val _snackbar = MutableLiveData<String?>(null)
-    val snackbar : LiveData<String?>
-    get() = _snackbar
+    val snackbar: LiveData<String?>
+        get() = _snackbar
 
     fun onSnackBarShown() {
         _snackbar.value = null
@@ -52,16 +58,21 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
         get() = _listPost
 
     init {
-        fetchPosts()
+        fetchLatest(_category.value ?: SpaceFlightNewsCategory.ARTICLES)
+    }
+
+    fun fetchLatest(category: SpaceFlightNewsCategory) {
+        fetchPosts(category.value)
+//        _category.value = category
     }
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui
      * o seu valor ao campo _listPost
      */
-    private fun fetchPosts() {
+    private fun fetchPosts(query: String) {
         viewModelScope.launch {
-            getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
+            getLatestPostsUseCase(query)
                 .onStart {
                     //fazer algo no começo do flow
                     _listPost.postValue(State.Loading)
@@ -74,16 +85,23 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
                     _snackbar.value = exception.message
                 }
                 .collect { listPost ->
-                _listPost.postValue(State.Success(listPost))
-            }
+                    _listPost.postValue(State.Success(listPost))
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.uppercase())
+                }
         }
     }
 
     val helloText = Transformations.map(listPost) { state ->
-        when(state) {
-            State.Loading -> { "🚀 Loading latest news..." }
-            is State.Error -> { "Houston, we've had a problem!!" }
-            else -> { "" }
+        when (state) {
+            State.Loading -> {
+                "🚀 Loading latest news..."
+            }
+            is State.Error -> {
+                "Houston, we've had a problem!!"
+            }
+            else -> {
+                ""
+            }
         }
     }
 
