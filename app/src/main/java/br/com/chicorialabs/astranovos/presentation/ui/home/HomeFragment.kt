@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
@@ -28,11 +30,34 @@ class HomeFragment : Fragment() {
     ): View? {
 
         initBinding()
-
         initSnackBar()
-
         initRecyclerView()
+        initOptionMenu()
+
         return binding.root
+    }
+
+    private fun initOptionMenu() {
+        with(binding.homeToolbar) {
+
+            inflateMenu(R.menu.options_menu)
+
+            menu.findItem(R.id.action_get_articles).setOnMenuItemClickListener {
+                Toast.makeText(context, "Clicked News!", Toast.LENGTH_SHORT).show()
+                true
+            }
+
+            menu.findItem(R.id.action_get_blogs).setOnMenuItemClickListener {
+                Toast.makeText(context, "Clicked Blogs!", Toast.LENGTH_SHORT).show()
+                true
+            }
+
+            menu.findItem(R.id.action_get_reports).setOnMenuItemClickListener {
+                Toast.makeText(context, "Clicked Reports!", Toast.LENGTH_SHORT).show()
+                true
+            }
+        }
+
     }
 
     private fun initSnackBar() {

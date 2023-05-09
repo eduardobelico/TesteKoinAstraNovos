@@ -2,4 +2,7 @@
     <string name="app_name">AstraNovos</string>
     <string name="HomeToolbarTitle">Latest news</string>
     <string name="home_fragment_placeholder">This is home fragment</string>
+    <string name="blogs">Blogs</string>
+    <string name="news">News</string>
+    <string name="reports">Mission Reports</string>
 </resources>
