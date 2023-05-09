@@ -2,6 +2,7 @@ package br.com.chicorialabs.astranovos.data.services
 
 import br.com.chicorialabs.astranovos.data.model.Post
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * Interface responsável pela comunicação com a API web.
@@ -10,9 +11,10 @@ import retrofit2.http.GET
 interface SpaceFlightNewsService {
 
     /**
-     * Endpoint que acessa uma lista de arquivos. Não possui parâmetros.
+     * Endpoint que acessa uma lista de arquivos.
      */
-    @GET("articles")
-    suspend fun listPosts() : List<Post>
+
+    @GET("{type}")
+    suspend fun listPosts(@Path("type") type: String) : List<Post>
 
 }

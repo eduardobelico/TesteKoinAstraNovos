@@ -3,6 +3,7 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.domain.PostUseCases.GetLatestPostsUseCase
@@ -60,7 +61,7 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            getLatestPostsUseCase()
+            getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
                 .onStart {
                     //fazer algo no começo do flow
                     _listPost.postValue(State.Loading)
