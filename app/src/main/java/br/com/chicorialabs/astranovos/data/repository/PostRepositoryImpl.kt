@@ -30,7 +30,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
 
     }
 
-    override suspend fun listPostsTitleContains(category: String, titleContains: String): Flow<List<Post>> = flow {
+    override suspend fun listPostsTitleContains(category: String, titleContains: String?): Flow<List<Post>> = flow {
 
         try {
             val postList = service.listPostsTitleContains(type = category, titleContains = titleContains)
