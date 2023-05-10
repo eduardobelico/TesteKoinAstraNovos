@@ -60,4 +60,31 @@ class SpaceFlightNewsServiceTest {
 
         }
     }
+
+    /**
+     * Verificar se o endpoint correto é alcançado.
+     */
+
+    @Test
+    fun deve_AlcancarEnpointCorreto_AoReceberQueryComOption() {
+        runBlocking {
+            mockWebServer.enqueue((MockResponse().setBody("[]")))
+            service.listPostsTitleContains("articles", "mars")
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles?title_contains=mars")
+        }
+    }
+
+    @Test
+    fun deve_AlcancarEnpointCorreto_AoReceberQueryComOptionNull() {
+        runBlocking {
+            mockWebServer.enqueue((MockResponse().setBody("[]")))
+            service.listPostsTitleContains("articles", null)
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles")
+        }
+    }
+
 }
