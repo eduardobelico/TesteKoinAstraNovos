@@ -1,8 +1,9 @@
 package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.data.mappers.toPost
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
+import br.com.chicorialabs.astranovos.data.remote.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -22,7 +23,9 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
     override suspend fun listPosts(category: String): Flow<List<Post>> = flow {
 
         try {
-            val postList = service.listPosts(category)
+            val postList = service.listPosts(type = category).map { listPostDto ->
+                listPostDto.toPost()
+            }
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to connect to SpaceFlightNews API")
@@ -33,7 +36,9 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
     override suspend fun listPostsTitleContains(category: String, titleContains: String?): Flow<List<Post>> = flow {
 
         try {
-            val postList = service.listPostsTitleContains(type = category, titleContains = titleContains)
+            val postList = service.listPostsTitleContains(type = category, titleContains = titleContains).map { listPostDto ->
+                listPostDto.toPost()
+            }
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts!")

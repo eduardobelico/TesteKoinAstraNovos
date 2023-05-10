@@ -1,6 +1,6 @@
 package br.com.chicorialabs.astranovos.data
 
-import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
+import br.com.chicorialabs.astranovos.data.remote.SpaceFlightNewsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking

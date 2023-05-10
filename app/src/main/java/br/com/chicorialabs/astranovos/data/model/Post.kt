@@ -13,7 +13,7 @@ data class Post(
     val summary: String,
     val publishedAt: String,
     val updatedAt: String?,
-    var launches: Array<Launch> = emptyArray()
+    val launches: List<String>
 ) {
     /**
      * A função hasLaunch() é um método de conveniência para

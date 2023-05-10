@@ -3,7 +3,7 @@ package br.com.chicorialabs.astranovos.data.di
 import android.util.Log
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
-import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
+import br.com.chicorialabs.astranovos.data.remote.SpaceFlightNewsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient

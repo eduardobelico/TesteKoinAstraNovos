@@ -2,7 +2,7 @@ package br.com.chicorialabs.astranovos.tests
 
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
-import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
+import br.com.chicorialabs.astranovos.data.remote.SpaceFlightNewsService
 import br.com.chicorialabs.astranovos.domain.PostUseCases.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.PostUseCases.GetLatestPostsUseCase
 import com.squareup.moshi.Moshi
